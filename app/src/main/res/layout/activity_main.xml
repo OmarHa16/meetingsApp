@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter the date in days here"
-            android:inputType="date" />
+            android:inputType="text" />
 
     </TableRow>
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter the time here"
-            android:inputType="time" />
+            android:inputType="text" />
 
     </TableRow>
 
@@ -155,7 +155,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/newdateID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next Date in days"
@@ -176,7 +176,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/newtimeID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next Date in Time"
@@ -192,12 +192,14 @@
             android:id="@+id/findDone_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="find  meeting" />
 
         <Button
             android:id="@+id/create_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="create meeting" />
     </TableRow>
 
@@ -209,12 +211,14 @@
             android:id="@+id/cancel_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="cancel meeting" />
 
         <Button
             android:id="@+id/postponed_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="postponed meeting" />
     </TableRow>
 
@@ -226,12 +230,14 @@
             android:id="@+id/todays_btn"
             android:layout_width="113dp"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="today's meetings" />
 
         <Button
             android:id="@+id/postponeded_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="postponeded meetings" />
     </TableRow>
 
@@ -243,12 +249,14 @@
             android:id="@+id/settings_btn"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="settings" />
 
         <Button
             android:id="@+id/outline_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick"
             android:text="outline meetings" />
     </TableRow>
 </TableLayout>
