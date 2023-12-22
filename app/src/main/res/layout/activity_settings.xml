@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choose_a_color_for_the_app"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="50dp"
+        android:textSize="20sp"
+        android:textStyle="italic"/>
+
+    <Button
+        android:id="@+id/btn_Grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="grey_color" />
+
+    <Button
+        android:id="@+id/btn_Pink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="pink_color" />
+
+    <Button
+        android:id="@+id/btn_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="blue_color" />
+
+
+
+</LinearLayout>
