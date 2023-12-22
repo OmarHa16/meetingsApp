@@ -1,7 +1,7 @@
 package com.example.meetingsapp;
 
 import static com.example.meetingsapp.R.*;
-import static com.example.meetingsapp.R.id.sound_switch;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
