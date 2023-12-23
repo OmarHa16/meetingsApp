@@ -10,14 +10,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
 public class SettingsActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar mToolbar;
     Button Greyone;
     Button beigeone;
-    Button deepblueone;
+    Button deepblueone, switchb;
    LinearLayout linearLayout;
+
     SharedPreferences sharedPreferences;
 
     @Override
@@ -27,10 +30,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
         mToolbar=(Toolbar)findViewById(id.toolbar2);
+        switchb = findViewById(id.btn_Switch);
         Greyone =(Button) findViewById(id.btn_blue);
         beigeone =(Button) findViewById(id.btn_Grey);
         deepblueone =(Button) findViewById(id.btn_Pink);
         linearLayout=(LinearLayout) findViewById(id.layout);
+
+
+
 
 
 
@@ -72,6 +79,20 @@ public class SettingsActivity extends AppCompatActivity {
             setResult(RESULT_OK,i);
             finish();
         });
+        switchb.setOnClickListener(v -> {
+            if(switchb.getText().toString().equals("Enable")){
+                i.putExtra("buttonssuond",1);
+                switchb.setText("Disable");
+                setResult(RESULT_OK,i);
+                finish();
+            }else{
+                i.putExtra("buttonssuond",0);
+                switchb.setText("Enable");
+                setResult(RESULT_OK,i);
+                finish();
+            }
+        });
+
 
 
     }

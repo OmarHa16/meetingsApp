@@ -68,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         ntimev = findViewById(R.id.newtimeID);
 
 
+        find.setSoundEffectsEnabled(GetSoundEffects());
+        create.setSoundEffectsEnabled(GetSoundEffects());
+        cancel.setSoundEffectsEnabled(GetSoundEffects());
+        todays.setSoundEffectsEnabled(GetSoundEffects());
+        postponed.setSoundEffectsEnabled(GetSoundEffects());
+        postponeded.setSoundEffectsEnabled(GetSoundEffects());
+        outline.setSoundEffectsEnabled(GetSoundEffects());
+        settings.setSoundEffectsEnabled(GetSoundEffects());
 
 
 
@@ -103,18 +111,17 @@ public class MainActivity extends AppCompatActivity {
                     int background = o.getData().getIntExtra("backgroundcolor", -1);
                     int button = o.getData().getIntExtra("buttoncolor", -1);
                     int text = o.getData().getIntExtra("textcolor", -1);
-
+                    int s = o.getData().getIntExtra("buttonssuond",1);
                     buttonscolor(button);
                     backgroundColor(background);
                     textColor(text);
+                    buttonssound(s==1);
                 }
             }
 
         });
 
 
-        newdate = findViewById(R.id.newdateID);
-        newtime = findViewById(R.id.newtimeID);
 
         date = findViewById(R.id.dateID);
         time = findViewById(R.id.timeID);
@@ -157,6 +164,21 @@ public class MainActivity extends AppCompatActivity {
         ndatev.setTextColor(getResources().getColor(color));
         ntimev.setTextColor(getResources().getColor(color));
         StoreColor(getResources().getColor(color));
+    }
+
+    public void buttonssound(boolean s){
+
+            find.setSoundEffectsEnabled(s);
+            create.setSoundEffectsEnabled(s);
+            cancel.setSoundEffectsEnabled(s);
+            postponed.setSoundEffectsEnabled(s);
+            todays.setSoundEffectsEnabled(s);
+            postponeded.setSoundEffectsEnabled(s);
+            outline.setSoundEffectsEnabled(s);
+            settings.setSoundEffectsEnabled(s);
+            StoreSoundEffects(s);
+
+
     }
 
     public void onClick(View view){
@@ -502,5 +524,16 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences mSharedPreferencesre = getSharedPreferences("Text",MODE_PRIVATE);
         int selectedColor= mSharedPreferencesre.getInt("color",getResources().getColor(R.color.colorPrimary));
         return selectedColor;
+    }
+    private void StoreSoundEffects(boolean store){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("store",MODE_PRIVATE);
+        SharedPreferences.Editor mEditor=mSharedPreferencesre.edit();
+        mEditor.putBoolean("store",store);
+        mEditor.apply();
+    }
+    private boolean GetSoundEffects(){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("store",MODE_PRIVATE);
+        boolean selecteds= mSharedPreferencesre.getBoolean("store",true);
+        return selecteds;
     }
 }
