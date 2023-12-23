@@ -6,24 +6,17 @@ import static com.example.meetingsapp.R.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Layout;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.ToggleButton;
 
 public class SettingsActivity extends AppCompatActivity {
     androidx.appcompat.widget.Toolbar mToolbar;
-    Button mBlueColor;
-    Button mGreyColor;
-    Button mPinkColor;
+    Button Greyone;
+    Button beigeone;
+    Button deepblueone;
    LinearLayout linearLayout;
     SharedPreferences sharedPreferences;
 
@@ -34,9 +27,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
         mToolbar=(Toolbar)findViewById(id.toolbar2);
-        mBlueColor=(Button) findViewById(id.btn_blue);
-        mGreyColor=(Button) findViewById(id.btn_Grey);
-        mPinkColor=(Button) findViewById(id.btn_Pink);
+        Greyone =(Button) findViewById(id.btn_blue);
+        beigeone =(Button) findViewById(id.btn_Grey);
+        deepblueone =(Button) findViewById(id.btn_Pink);
         linearLayout=(LinearLayout) findViewById(id.layout);
 
 
@@ -47,42 +40,37 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
         if(getcolor()!=getResources().getColor(color.colorPrimary)){
-            mBlueColor.setBackgroundColor(getcolor());
-            mGreyColor.setBackgroundColor(getcolor());
-            mPinkColor.setBackgroundColor(getcolor());
+            Greyone.setBackgroundColor(getcolor());
+            beigeone.setBackgroundColor(getcolor());
+            deepblueone.setBackgroundColor(getcolor());
         }
         if (GetColor()!=getResources().getColor(color.colorPrimary)){
             linearLayout.setBackgroundColor(GetColor());
         }
+        Intent i = new Intent();
 
-
-        mBlueColor.setOnClickListener(view -> {
-            mToolbar.setBackgroundColor(getResources().getColor(color.colorBlue));
-            storeColor(getResources().getColor(color.colorBlue));
-            mBlueColor.setBackgroundColor(getResources().getColor(color.colorBlue));
-            storcolor(getResources().getColor(color.colorBlue));
-            linearLayout.setBackgroundColor(getResources().getColor(color.colorblue));
-            StoreColor(getResources().getColor(color.colorblue));
-
+        Greyone.setOnClickListener(view -> {
+            i.putExtra("buttoncolor", color.colorBlue);
+            i.putExtra("backgroundcolor", color.colorgrey);
+            i.putExtra("textcolor", color.black);
+            setResult(RESULT_OK,i);
+            finish();
         });
 
-        mGreyColor.setOnClickListener(view -> {
-            mToolbar.setBackgroundColor(getResources().getColor(color.colorGrey));
-            storeColor(getResources().getColor(color.colorGrey));
-
-            mGreyColor.setBackgroundColor(getResources().getColor(color.colorGrey));
-            storcolor(getResources().getColor(color.colorGrey));
-            linearLayout.setBackgroundColor(getResources().getColor(color.colorgrey));
-            StoreColor(getResources().getColor(color.colorgrey));
+        beigeone.setOnClickListener(view -> {
+            i.putExtra("buttoncolor", color.Teal);
+            i.putExtra("backgroundcolor", color.beige);
+            i.putExtra("textcolor", color.navyblue);
+            setResult(RESULT_OK,i);
+            finish();
         });
 
-        mPinkColor.setOnClickListener(view -> {
-            mToolbar.setBackgroundColor(getResources().getColor(color.colorPink));
-            storeColor(getResources().getColor(color.colorPink));
-            mPinkColor.setBackgroundColor(getResources().getColor(color.colorPink));
-            storcolor(getResources().getColor(color.colorPink));
-            linearLayout.setBackgroundColor(getResources().getColor(color.colorpink));
-            StoreColor(getResources().getColor(color.colorpink));
+        deepblueone.setOnClickListener(view -> {
+            i.putExtra("buttoncolor", color.Vred);
+            i.putExtra("backgroundcolor", color.Deepblue);
+            i.putExtra("textcolor", color.white);
+            setResult(RESULT_OK,i);
+            finish();
         });
 
 

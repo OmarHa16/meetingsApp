@@ -1,5 +1,9 @@
 package com.example.meetingsapp;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +21,9 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,10 +37,16 @@ public class MainActivity extends AppCompatActivity {
     TextView newdate, newtime;
     SQLiteDatabase db;
     SharedPreferences sharedPreferences;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    TextView datev, timev, placev, placedesv, personv, persondesv, ndatev, ntimev;
+    TableLayout tableLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tableLayout = findViewById(R.id.mainTable);
 
         find = findViewById(R.id.findDone_btn);
         create = findViewById(R.id.create_btn);
@@ -44,6 +56,62 @@ public class MainActivity extends AppCompatActivity {
         postponeded = findViewById(R.id.postponeded_btn);
         outline = findViewById(R.id.outline_btn);
         settings = findViewById(R.id.settings_btn);
+
+
+        datev = findViewById(R.id.DateViewID);
+        timev = findViewById(R.id.TimeViewID);
+        placev = findViewById(R.id.PlaceId);
+        placedesv = findViewById(R.id.PlaceDesID);
+        personv = findViewById(R.id.PersonID);
+        persondesv = findViewById(R.id.PersonDesID);
+        ndatev = findViewById(R.id.newdateID);
+        ntimev = findViewById(R.id.newtimeID);
+
+
+
+
+
+        if(getcolor()!=getResources().getColor(R.color.colorPrimary)){
+            find.setBackgroundColor(getcolor());
+            create.setBackgroundColor(getcolor());
+            cancel.setBackgroundColor(getcolor());
+            postponed.setBackgroundColor(getcolor());
+            todays.setBackgroundColor(getcolor());
+            postponeded.setBackgroundColor(getcolor());
+            outline.setBackgroundColor(getcolor());
+            settings.setBackgroundColor(getcolor());
+        }
+        if(getColor()!= getResources().getColor(R.color.colorPrimary)){
+            tableLayout.setBackgroundColor(getColor());
+        }
+        if(GetColor()!= getResources().getColor(R.color.colorPrimary)){
+            datev.setTextColor(GetColor());
+            timev.setTextColor(GetColor());
+            placev.setTextColor(GetColor());
+            placedesv.setTextColor(GetColor());
+            personv.setTextColor(GetColor());
+            persondesv.setTextColor(GetColor());
+            ndatev.setTextColor(GetColor());
+            ntimev.setTextColor(GetColor());
+        }
+
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult o) {
+                if(o.getResultCode()==RESULT_OK && o.getData() != null) {
+                    int background = o.getData().getIntExtra("backgroundcolor", -1);
+                    int button = o.getData().getIntExtra("buttoncolor", -1);
+                    int text = o.getData().getIntExtra("textcolor", -1);
+
+                    buttonscolor(button);
+                    backgroundColor(background);
+                    textColor(text);
+                }
+            }
+
+        });
+
 
         newdate = findViewById(R.id.newdateID);
         newtime = findViewById(R.id.newtimeID);
@@ -61,6 +129,34 @@ public class MainActivity extends AppCompatActivity {
         db = openOrCreateDatabase("meetingdb", Context.MODE_PRIVATE,null);
         onCreatedatabase(db);
 
+    }
+    public void buttonscolor(int color){
+
+        find.setBackgroundColor(getResources().getColor(color));
+        create.setBackgroundColor(getResources().getColor(color));
+        cancel.setBackgroundColor(getResources().getColor(color));
+        todays.setBackgroundColor(getResources().getColor(color));
+        postponed.setBackgroundColor(getResources().getColor(color));
+        postponeded.setBackgroundColor(getResources().getColor(color));
+        outline.setBackgroundColor(getResources().getColor(color));
+        settings.setBackgroundColor(getResources().getColor(color));
+        storcolor(getResources().getColor(color));
+
+    }
+    public void backgroundColor(int color){
+        tableLayout.setBackgroundColor(getResources().getColor(color));
+        storeColor(getResources().getColor(color));
+    }
+    public void textColor(int color){
+        datev.setTextColor(getResources().getColor(color));
+        timev.setTextColor(getResources().getColor(color));
+        placev.setTextColor(getResources().getColor(color));
+        placedesv.setTextColor(getResources().getColor(color));
+        personv.setTextColor(getResources().getColor(color));
+        persondesv.setTextColor(getResources().getColor(color));
+        ndatev.setTextColor(getResources().getColor(color));
+        ntimev.setTextColor(getResources().getColor(color));
+        StoreColor(getResources().getColor(color));
     }
 
     public void onClick(View view){
@@ -209,7 +305,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(view == settings){}
+        if(view == settings){
+            Intent intent = new Intent(this,SettingsActivity.class);
+            activityResultLauncher.launch(intent);
+        }
     }
     public static void onCreatedatabase(SQLiteDatabase db) {
         String query = "CREATE TABLE IF NOT EXISTS Place(PlaceID INTEGER PRIMARY KEY AUTOINCREMENT, PlaceName VARCHAR, Description VARCHAR);";
@@ -370,9 +469,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void OnStartMainActivity(View view){
-        Intent intent=new Intent(this, SettingsActivity.class);
-        startActivity(intent);
 
+    private void storcolor(int color){
+        SharedPreferences sharedPreferences=getSharedPreferences("Button",MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putInt("color",color);
+        editor.apply();
+    }
+    private int getcolor(){
+        SharedPreferences sharedPreferences=getSharedPreferences("Button",MODE_PRIVATE);
+        int selectedcolor=sharedPreferences.getInt("color",getResources().getColor(R.color.colorPrimary));
+        return selectedcolor;
+    }
+    private void storeColor(int color){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("Tablelayout",MODE_PRIVATE);
+        SharedPreferences.Editor mEditor=mSharedPreferencesre.edit();
+        mEditor.putInt("color",color);
+        mEditor.apply();
+    }
+    private int getColor(){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("Tablelayout",MODE_PRIVATE);
+        int selectedColor= mSharedPreferencesre.getInt("color",getResources().getColor(R.color.colorPrimary));
+        return selectedColor;
+    }
+    private void StoreColor(int color){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("Text",MODE_PRIVATE);
+        SharedPreferences.Editor mEditor=mSharedPreferencesre.edit();
+        mEditor.putInt("color",color);
+        mEditor.apply();
+    }
+    private int GetColor(){
+        SharedPreferences mSharedPreferencesre = getSharedPreferences("Text",MODE_PRIVATE);
+        int selectedColor= mSharedPreferencesre.getInt("color",getResources().getColor(R.color.colorPrimary));
+        return selectedColor;
     }
 }

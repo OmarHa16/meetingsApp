@@ -33,20 +33,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="grey_color" />
+        android:text="Beige" />
 
     <Button
         android:id="@+id/btn_Pink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="pink_color" />
+        android:text="Deep Blue" />
 
     <Button
         android:id="@+id/btn_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="blue_color" />
+        android:text="Grey" />
 
 
 
